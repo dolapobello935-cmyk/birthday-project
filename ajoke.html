@@ -1,0 +1,414 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Ajoke</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Segoe UI, sans-serif;
+}
+
+body{
+min-height:100vh;
+background:linear-gradient(135deg,#ffffff,#ffe6f2,#ffd6ea);
+overflow:hidden;
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:20px;
+}
+
+/* INTRO */
+
+#intro{
+position:fixed;
+width:100%;
+height:100%;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:clamp(28px,5vw,42px);
+color:#ff2d75;
+background:white;
+animation:fade 3s forwards;
+z-index:5;
+}
+
+@keyframes fade{
+0%{opacity:1}
+90%{opacity:1}
+100%{opacity:0;visibility:hidden;}
+}
+
+/* LOGIN */
+
+#loginPage{
+position:fixed;
+width:100%;
+height:100%;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+}
+
+#loginPage h1{
+color:#ff2d75;
+font-size:clamp(24px,4vw,36px);
+}
+
+input{
+margin-top:20px;
+padding:14px;
+width:250px;
+max-width:80%;
+border-radius:10px;
+border:1px solid #ddd;
+font-size:18px;
+}
+
+button{
+margin-top:20px;
+padding:12px 26px;
+border:none;
+background:#ff2d75;
+color:white;
+font-size:16px;
+border-radius:10px;
+cursor:pointer;
+}
+
+/* MAIN */
+
+#mainSite{
+display:none;
+max-width:900px;
+width:100%;
+}
+
+.title{
+font-size:clamp(28px,6vw,48px);
+color:#ff2d75;
+font-weight:bold;
+}
+
+.message{
+margin-top:30px;
+font-size:clamp(16px,3vw,22px);
+line-height:1.8;
+color:#333;
+padding:0 10px;
+}
+
+/* CURSOR */
+
+.cursor{
+display:inline-block;
+width:3px;
+background:#ff2d75;
+animation:blink 1s infinite;
+}
+
+@keyframes blink{
+0%{opacity:1}
+50%{opacity:0}
+100%{opacity:1}
+}
+
+/* HEARTS */
+
+.heart{
+position:fixed;
+font-size:20px;
+color:#ff2d75;
+animation:float 6s linear infinite;
+}
+
+@keyframes float{
+0%{transform:translateY(100vh)}
+100%{transform:translateY(-10vh)}
+}
+
+/* FIREWORKS */
+
+.firework{
+position:fixed;
+font-size:40px;
+animation:explode 1s linear infinite;
+}
+
+@keyframes explode{
+0%{opacity:1;transform:scale(0)}
+100%{opacity:0;transform:scale(2)}
+}
+
+/* NOTE */
+
+#note{
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+background:white;
+padding:25px;
+border-radius:12px;
+box-shadow:0 0 20px rgba(0,0,0,0.2);
+display:none;
+width:300px;
+max-width:90%;
+}
+
+/* FINAL SURPRISE */
+
+#final{
+position:fixed;
+width:100%;
+height:100%;
+background:#ff2d75;
+color:white;
+display:none;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+padding:20px;
+text-align:center;
+}
+
+#final h1{
+font-size:clamp(36px,7vw,60px);
+}
+
+#final p{
+margin-top:20px;
+font-size:clamp(18px,4vw,26px);
+max-width:700px;
+}
+
+#final button{
+background:white;
+color:#ff2d75;
+font-weight:bold;
+margin-top:30px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="loginPage">
+<h1>Enter your password</h1>
+<input id="password" type="password">
+<button onclick="login()">Enter</button>
+</div>
+
+
+<div id="mainSite">
+
+<div class="title">Happy Birthday Ajoke ❤️</div>
+
+<div class="message">
+<span id="text"></span><span class="cursor"></span>
+</div>
+
+<br>
+
+<button onclick="showNote()">Secret Love Note 💌</button>
+<button onclick="startFireworks()">Celebrate 🎆</button>
+<button onclick="showFinal()">Final Surprise 🎁</button>
+
+</div>
+
+
+<div id="note">
+
+<h2>My Love</h2>
+
+<p>
+You are the most beautiful part of my life.
+I am grateful for every moment with you.
+Happy Birthday my amazing Ajoke ❤️
+</p>
+
+<br>
+
+<button onclick="closeNote()">Close</button>
+
+</div>
+
+
+<div id="final">
+
+<h1>I LOVE YOU AJOKE ❤️</h1>
+
+<p>
+You are my happiness, my peace, and the most
+beautiful person in my life.
+
+Today is your special day and I just want you
+to know how much you mean to me.
+
+Happy Birthday my love.
+May your life always be filled with joy,
+success, and endless beautiful moments.
+</p>
+
+<button onclick="location.reload()">Start Again</button>
+
+</div>
+
+
+<audio autoplay loop>
+<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_64d95c6c8b.mp3">
+</audio>
+
+
+<script>
+
+/* LOGIN */
+
+function login(){
+
+let pass=document.getElementById("password").value;
+
+if(pass==="AJOKE"){
+
+document.getElementById("loginPage").style.display="none";
+document.getElementById("mainSite").style.display="block";
+
+startTyping();
+createHearts();
+
+}
+
+else{
+alert("Wrong password ❤️");
+}
+
+}
+
+
+/* TYPING MESSAGE */
+
+const message=`
+
+My Love,
+
+Today is the day the world was blessed with
+someone truly special.
+
+You make my life brighter,
+my days happier,
+and my heart full of joy.
+
+I am grateful for every moment we share.
+
+Happy Birthday Ajoke ❤️
+
+`;
+
+let i=0;
+
+function startTyping(){
+
+function type(){
+
+if(i < message.length){
+
+document.getElementById("text").innerHTML+=message.charAt(i);
+
+i++;
+
+setTimeout(type,40);
+
+}
+
+}
+
+type();
+
+}
+
+
+/* HEARTS */
+
+function createHearts(){
+
+setInterval(()=>{
+
+let heart=document.createElement("div");
+
+heart.className="heart";
+
+heart.innerHTML="❤";
+
+heart.style.left=Math.random()*100+"%";
+
+document.body.appendChild(heart);
+
+setTimeout(()=>{heart.remove()},6000);
+
+},500);
+
+}
+
+
+/* NOTE */
+
+function showNote(){
+document.getElementById("note").style.display="block";
+}
+
+function closeNote(){
+document.getElementById("note").style.display="none";
+}
+
+
+/* FIREWORKS */
+
+function startFireworks(){
+
+setInterval(()=>{
+
+let f=document.createElement("div");
+
+f.className="firework";
+
+f.innerHTML="✨";
+
+f.style.left=Math.random()*100+"%";
+f.style.top=Math.random()*80+"%";
+
+document.body.appendChild(f);
+
+setTimeout(()=>{f.remove()},1000);
+
+},300);
+
+}
+
+
+/* FINAL */
+
+function showFinal(){
+
+document.getElementById("final").style.display="flex";
+
+startFireworks();
+
+}
+
+</script>
+
+</body>
+</html>
+
